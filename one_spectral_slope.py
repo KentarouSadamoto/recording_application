@@ -23,9 +23,6 @@ def linear_regression(y,f0):
         idx_array=np.append(idx_array,idx,)
     idx_array=(idx_array).astype(int)
     amplitude=fft_log[idx_array]
-    #ある一定の周波数以下のデータを計算から除外する場合に使う。↓2行も
-    amplitude=amplitude[idx_array*df > min_freq]
-    idx_array=idx_array[idx_array*df > min_freq]
     deletelist=[]
     for i in range(len(amplitude)):
         if amplitude[i] < -96:#int16bitの分解能は-96dBあたりまでのため-96dB以下のデータを計算に含まないように削除しています。
@@ -52,14 +49,10 @@ def linear_regression(y,f0):
     plt.grid()
     plt.show()
     return slope
-second=9
+second=6
 n_fft=2048
-drive=[0,5,10]
-tone=[0,5,10]
-level=[0,5,10]
 dir_path=input("分析するファイルのパスを入力してください。\n")
 f0=int(input("基本周波数を入力してください"))
-min_freq=int(input("分析に使用する最低周波数を入力してください"))
 sr,y=read(f"{dir_path}")
 y=y/32768
 signal=y[int(second*sr):int((second*sr)+n_fft)]

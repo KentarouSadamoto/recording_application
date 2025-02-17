@@ -7,7 +7,7 @@ from scipy.signal.windows import hann
 def EnergyCalc(y,sf,ef):
     N=len(y)
     fft=np.fft.fft(y)
-    fft_abs=2*((np.abs(fft))**2/N)
+    fft_abs=2*(np.abs(fft)/N)
     correction_factor = np.sum(window) / len(window)
     corrected_signal = fft_abs / correction_factor
     fft_log=20*np.log10(corrected_signal)
@@ -28,14 +28,16 @@ def EnergyCalc(y,sf,ef):
     # plt.grid()
     # plt.show()
     return energy
+second=6
 n_fft=2048
+
 window=hann(n_fft)
 path=input("分析するファイルのパスを入力してください。\n")
-second=int(input("何秒時点のエネルギーを計算しますか"))
-sf=int(input("何Hzからのエネルギーを計算しますか"))
+f0=int(input("基本周波数を入力してください"))
+sf=4000
 ef=22050
 sr,y=read(path)
 y=y/32768
 signal=y[int(second*sr):int((second*sr)+n_fft)]
 w_signal=window*signal
-print(f"{sf}HZから{ef}HZまでのエネルギー：{EnergyCalc(w_signal,sf,ef)}")
+print(f"{sf}HZから{ef}HZまでのエネルギー：{EnergyCalc(w_signal,sf,ef):.3f}")

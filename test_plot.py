@@ -5,15 +5,15 @@ from scipy.signal.windows import hann
 
 def plotWaveForm(data,dt):
     t=np.arange(0,10,1/sr)
-    period_num=1
+    period_num=5
     n_period=dt*period_num
     plt.figure()
-    plt.plot(t,data,color="blue")
-    # plt.xlabel("time(s)")
-    # plt.ylabel("Sound Pressure")
+    plt.plot(t,data)
+    plt.xlabel("time(s)")
+    plt.ylabel("Sound Pressure")
     plt.xlim(9.8-(dt/10),9.8+n_period+(dt/10))
-    plt.ylim(-1.1,1.1)
-    # plt.grid()
+    plt.ylim(-1,1)
+    plt.grid()
     plt.show()
     
 def plotFFT(data):
@@ -34,13 +34,14 @@ def plotFFT(data):
     plt.grid()
     plt.show()
     
-# file_path=input("分析するファイルのパスを入力してください。\n")
-# sr, data = read(fr"{file_path}")
+file_path=input("分析するファイルのパスを入力してください。\n")
+sr, data = read(fr"{file_path}")
 import generate as gen
-f=1000
-data=gen.pure_tone(1,1000)
-data=data/32768
-sr=44100
+f=100
+# data=gen.periodic_complex_tone_chord(0.5)
+# sr=44100
+# data=data/32768
+data=data/2
 second=9.8
 dt=1/f
 plotWaveForm(data,dt)

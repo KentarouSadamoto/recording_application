@@ -41,10 +41,11 @@ tone=[0,5,10]
 level=[0,5,10]
 dir_path=input("分析するディレクトリのパスを入力してください。\n")
 save_file_name=input("保存するファイル名を入力してください。\n")
-
+f0=int(input("基本周波数を入力してください"))
 energy_list=[]
 fname_list=[]
-sf=int(input("何HzからのFFTデータの和を計算しますか"))
+# sf=2*f0
+sf=4000
 ef=22050
 
 for d in drive:
@@ -52,8 +53,8 @@ for d in drive:
         for l in level:
             if l != 0 or d == t == l ==0: 
                 filename=f"[{d}, {t}, {l}].wav"
+                fname_list.append(filename)
                 sr,y=read(f"{dir_path}\{filename}")
-                fname_list.append(f"DRIVE={d},TONE={t},LEVEL={l}")
                 y=y/32768
                 signal=y[int(second*sr):int((second*sr)+n_fft)]
                 w_signal=window*signal

@@ -503,7 +503,7 @@ def n_times_recording_window(level_window):#ユーザ指定の回数の録音を
 root = tk.Tk()
 root.title("Experimental-App")
 root.resizable(0, 0)
-root.geometry("1000x400")
+root.geometry("1000x450")
 # セットアップウィンドウ
 setup_label = tk.Label(root, 
                        text="---------------------------------------------------------SET UP----------------------------------------------------------",

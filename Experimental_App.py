@@ -74,8 +74,9 @@ def setting_submit():
     match sound_type:#選択された信号の生成
         case 1: signal=gen.pure_tone(amplitude,frequency);test_signal=gen.pure_tone(amplitude,frequency,duration=1)
         case 2: signal=gen.preodic_complex_tone(amplitude,frequency,overtone=overtone);test_signal=gen.preodic_complex_tone(amplitude,frequency,overtone=overtone,duration=1)
-        case 3: sr,signal=read("white_noise.wav");sr,test_signal=read("white_noise.wav");test_signal=test_signal[0:sr*1]
-        case 4: signal=gen.periodic_complex_tone_chord(amplitude,overtone=overtone);test_signal=gen.periodic_complex_tone_chord(amplitude,overtone=overtone,duration=1)
+        case 3: signal=gen.periodic_complex_tone_chord(amplitude,overtone=overtone);test_signal=gen.periodic_complex_tone_chord(amplitude,overtone=overtone,duration=1)
+        case 4: sr,signal=read("white_noise.wav");sr,test_signal=read("white_noise.wav");test_signal=test_signal[0:sr*1]
+        case 5: sr,signal=read("sweep_signal.wav");sr,test_signal=read("sweep_signal.wav");test_signal=test_signal[0:sr*1]
     if use_fade==1:#フェードインの使用可否
         signal=gen.fade_in(signal)
     signal=gen.add_silent(signal)
@@ -503,7 +504,7 @@ def n_times_recording_window(level_window):#ユーザ指定の回数の録音を
 root = tk.Tk()
 root.title("Experimental-App")
 root.resizable(0, 0)
-root.geometry("1000x450")
+root.geometry("1000x500")
 # セットアップウィンドウ
 setup_label = tk.Label(root, 
                        text="---------------------------------------------------------SET UP----------------------------------------------------------",
@@ -557,14 +558,17 @@ sound_type_var = tk.IntVar(value=1)
 pure_tone_radio = tk.Radiobutton(frame_sound, text="純音", variable=sound_type_var, value=1, font=("Times", 12))
 pure_tone_radio.pack(anchor=tk.W)
 
-preodic_complex_tone_radio = tk.Radiobutton(frame_sound, text="調波複合音", variable=sound_type_var, value=2, font=("Times", 12))
+preodic_complex_tone_radio = tk.Radiobutton(frame_sound, text="調波複合音の単音", variable=sound_type_var, value=2, font=("Times", 12))
 preodic_complex_tone_radio.pack(anchor=tk.W)
 
-whitenoise_radio = tk.Radiobutton(frame_sound, text="ホワイトノイズ", variable=sound_type_var, value=3, font=("Times", 12))
+chord_tone_radio=tk.Radiobutton(frame_sound, text="調波複合音の和音(Emajor)", variable=sound_type_var, value=3, font=("Times", 12))
+chord_tone_radio.pack(anchor=tk.W)
+
+whitenoise_radio = tk.Radiobutton(frame_sound, text="ホワイトノイズ", variable=sound_type_var, value=4, font=("Times", 12))
 whitenoise_radio.pack(anchor=tk.W)
 
-chord_tone_radio=tk.Radiobutton(frame_sound, text="調波複合音の和音", variable=sound_type_var, value=4, font=("Times", 12))
-chord_tone_radio.pack(anchor=tk.W)
+sweep_radio = tk.Radiobutton(frame_sound, text="スイープ信号", variable=sound_type_var, value=5, font=("Times", 12))
+sweep_radio.pack(anchor=tk.W)
 
 fade_check_var = tk.IntVar(value=1)
 fade_check = tk.Checkbutton(frame_sound, text="フェードの使用", variable=fade_check_var, font=("Times", 12))

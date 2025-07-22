@@ -5,7 +5,7 @@ Pythonおよびtkinter,sounddeviceライブラリを主として実装してい�
 これらの信号を用いることで、種々の音響機器に対する測定を行うことができます。
 Windowsでのみ動作確認しております。
 ### ご利用方法
-1. まずReleaseからExperimental_App.exeファイルしてください。
+1. まずReleaseからExperimental_App.exeファイルをダウンロードしてください。
 2. 測定に使用する機器を接続してください。
 3. 音響測定アプリケーションを起動するには、Experimental_App.exeを実行してください。
 
